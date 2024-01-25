@@ -42,7 +42,7 @@ def img = stage('Build') {
           colorized: true,
           become: true,
           playbook: 'playbook.yml',
-          inventory: '${HOST}',
+          inventory: 'hosts.yml',
           extras: "--user=jenkins --extra-vars 'ansible_sudo_pass=1234 image=$IMAGE'"
        )
     }
