@@ -1,7 +1,7 @@
 node {
    def registryProjet='registry.gitlab.com/plaga1/presentations-jenkins'
    def IMAGE="${registryProjet}:compil-${env.BUILD_ID}"
-#clone du dépôt Github
+
     stage('Build - Clone') {
           git 'https://github.com/hubabdou/jenkins-ansible-docker.git'
     }
@@ -9,12 +9,12 @@ node {
             sh 'mvn package'
     }
      
-#Construction de l'image à la racine     
+   
 def img = stage('Build') {
           docker.build("$IMAGE",  '.')
     }
 
-#Lancement et test  de l'image genérée  
+  
    stage('Build - Test') {
             img.withRun("--name run-$BUILD_ID -p 8081:8080") { c ->
             sh 'docker ps'
@@ -24,7 +24,7 @@ def img = stage('Build') {
             sh 'docker ps'
           }
     }
-#Pousser l'image vers la registry Gitlab 
+
    stage('Build - Push') {
           docker.withRegistry('https://registry.gitlab.com', 'reg1') {
               img.push 'latest'
@@ -32,7 +32,7 @@ def img = stage('Build') {
           }
     }
 
-#Déployer par Ansible l'image clonée
+
     stage('Deploy - Clone') {
           git 'https://github.com/hubabdou/jenkins-ansible-docker.git'
     }
