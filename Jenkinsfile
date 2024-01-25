@@ -3,7 +3,7 @@ node {
    def IMAGE="${registryProjet}:compil-${env.BUILD_ID}"
 
     stage('Build - Clone') {
-          git 'https://github.com/hubabdou/jenkins-ansible-docker.git'
+          git 'https://github.com/hubabdou/war-build-docker.git'
     }
     stage('Build - Maven package'){
             sh 'mvn package'
