@@ -1,8 +1,15 @@
 - name: install pip
   yum:
     name: python-pip
-    state: present
+    state: latest
+  become: true
 
+- name: Install setuptools-scm
+  pip:
+    name: setuptools-scm
+  become: true
+
+    
 - name: pip install docker-py
   pip:
     name:
